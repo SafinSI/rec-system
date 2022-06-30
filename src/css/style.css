@@ -1,0 +1,158 @@
+body {
+  margin: 0px auto;
+  max-width: 3600px;
+  font-family: system-ui;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* ширина для вертикального скролла */
+  height: 4px; /* высота для горизонтального скролла */
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+input {
+  outline: none;
+}
+
+.link {
+  color: #7392FF;
+  text-decoration: none;
+}
+
+.link:hover{
+  color:#597dff;
+}
+
+.text-information {
+  line-height: calc(3vh + 5px);
+  padding: 0px;
+  margin: 0px;
+}
+
+.list-information {
+  line-height: calc(3vh + 5px);
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  font-size: 18px;
+}
+
+.list-information > li {
+  padding: 5px 0px;
+}
+
+.list-information ul {
+  line-height: calc(3vh + 5px);
+  font-size: 15px;
+}
+
+.main_header1 {
+  margin: 0px 0px calc(2vh + 5px) 0px; 
+  font-size: calc(2vh + 1vw + 5px);
+  font-weight: 500;
+  padding-bottom: 5px;
+  border-bottom: 2px #ccd7ff solid;
+}
+
+
+#root {
+  display: grid;
+  grid-template-columns: minmax(0, max-content) 1fr;
+  column-gap: 20px;
+  min-height: 100vh;
+  grid-template-rows: max-content 1fr;
+  position: relative;
+}
+
+.main {
+  grid-column: 2;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.text-area {
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  flex-grow: 2;
+  outline: none;
+}
+
+.square-button {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 8px 20px;
+  background-color: #7392FF;
+  color: #fff;
+  transition: background-color 0.5s;
+}
+
+.square-button:hover{
+  background-color: #597dff;
+}
+
+.square-button:disabled,
+.square-button[disabled] {
+  background-color: #c0c0c0;
+}
+
+.grey-button {
+  color: black;
+  background-color: #cccccc;
+}
+
+
+.grey-button:hover{
+  background-color: #c0c0c0;
+}
+
+
+@media (max-width: 970px) {
+  .App {
+    grid-template-rows: max-content auto 1fr;
+    font-size: calc(15px + 1vh); }
+
+  .main {
+    grid-column: span 2;
+    padding: 20px 12px; }
+
+  .text-area {
+    order: 1;
+    font-size: calc(12px + 1vh); }
+
+  .square-button {
+    order: 2;
+    font-size: calc(12px + 1vh); }
+
+  .hidden {
+    display: none; } 
+}
+
+
+.pages-num-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 300;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.pages-num-text{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: white;
+}

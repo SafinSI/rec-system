@@ -1,0 +1,29 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #EFEFEF;
+    border-radius: 15px;
+    gap: 15px;
+    padding: 10px;
+    font-size: 15px; 
+}
+
+.square-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    background-color: #7392FF;
+    color: #fff;
+    transition: background-color 0.5s;
+}
+  
+.square-button:hover{
+    background-color: #597dff;
+}
+
+.square-button:disabled,
+.square-button[disabled] {
+    background-color: #c0c0c0;
+}

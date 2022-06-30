@@ -1,0 +1,27 @@
+.thematics-list {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #EFEFEF;
+    border-radius: 15px;
+    gap: 15px;
+    padding: 10px;
+    min-height: 20px; }
+  
+.item {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: #DBDBDB;
+    color: black;
+    display: flex;
+    gap: 5px;
+    align-items: center;}
+  
+.delete-button {
+    border: none;
+    background-color: #cccccc;
+    border-radius: 50%;
+    padding: 0px 4px; 
+    transition: background-color 0.4s;}
+  
+.delete-button:hover {
+    background-color: #c0c0c0;}
