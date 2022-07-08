@@ -11,7 +11,6 @@
 .square-button {
     cursor: pointer;
     border: none;
-    outline: none;
     border-radius: 5px;
     padding: 8px 20px;
     background-color: #7392FF;

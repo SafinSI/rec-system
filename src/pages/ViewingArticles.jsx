@@ -6,6 +6,7 @@ import ModalWindow from "../components/ModalWindow/ModalWindow";
 import Select from '../components/Select/Select'
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
+import SelectAndInputForm from '../components/ModalWindow/ModalBodyForms/SelectAndInputForm'
 
 import getActualURL from '../utils/getActualURL'
 import sendRequest from '../utils/sendRequest'
@@ -145,10 +146,19 @@ function ViewingArticles({onClick}) {
           });
         }}
       />
+
       {
         (classificationLabels.current.length > 0)?
-        <ModalWindow active={modalActive} setActive={setModalActive}
-          onConfirm={addToRecomendations} options={classificationLabels.current}/>
+        <ModalWindow title={'Оценка для рекомендательной системы'}
+          active={modalActive} setActive={setModalActive}
+          onConfirm={(data) => {
+            if (!!data.rating) {
+              addToRecomendations(data.rating, data.label)
+            }
+          }}
+          dataInitialState = {{rating: '', label: classificationLabels?.current[0]?.id}}
+          renderFunction={(args) => SelectAndInputForm({...args, options: classificationLabels?.current})}
+        />
           :
         ''
       }

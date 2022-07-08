@@ -45,8 +45,6 @@ function App() {
       { isAuth
         ? (
           <Routes>
-            <Route path="*" 
-              element={<NotFound onClick={() => setSidebarState(false)}/>} />
             <Route path="/recommendation_thematics"
               element={<RecomendationThematics onClick={() => setSidebarState(false)}/>} />
             <Route path="/articles" 
@@ -59,6 +57,8 @@ function App() {
               element={<RecommendedConferences onClick={() => setSidebarState(false)}/>} />
             <Route path="/about" 
               element={<About onClick={() => setSidebarState(false)} />} />
+            <Route path="*" 
+              element={<NotFound onClick={() => setSidebarState(false)}/>} />
           </Routes>
         )
         : (

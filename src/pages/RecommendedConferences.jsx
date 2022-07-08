@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 
 import Table from '../components/Table/Table';
 import ModalWindow from "../components/ModalWindow/ModalWindow";
+import InputForm from '../components/ModalWindow/ModalBodyForms/InputForm'
 import Select from '../components/Select/Select';
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
 import RatingInput from '../components/RatingInput/RatingInput';
+
 
 import getActualURL from '../utils/getActualURL'
 import sendRequest from '../utils/sendRequest'
@@ -148,9 +150,17 @@ function RecommendedConferences({onClick}) {
           });
         }}
       />
-      <ModalWindow active={modalActive} 
-        setActive={setModalActive} 
-        onConfirm={addToRecomendations}/>
+
+      <ModalWindow title={'Оценка для рекомендательной системы'}
+        active={modalActive} setActive={setModalActive}
+        onConfirm={(data) => {
+          if (!!data.rating) {
+            addToRecomendations(data.rating)
+          }
+        }}
+        dataInitialState = {{rating: ''}}
+        renderFunction={InputForm}
+      />
     </div>
   )
 }

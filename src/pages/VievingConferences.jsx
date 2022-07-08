@@ -10,6 +10,7 @@ import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
 import getActualURL from '../utils/getActualURL'
 import sendRequest from '../utils/sendRequest'
 import environmentConstants from '../environmentConstants';
+import InputForm from '../components/ModalWindow/ModalBodyForms/InputForm'
 
 const { BASIC_URL, PAGE_LENS } = environmentConstants;
 
@@ -56,7 +57,7 @@ function ViewingConferences({onClick}) {
   }
 
   // request to add recomendations
-  const addToRecomendations = (rating, classification_label) => {
+  const addToRecomendations = (rating) => {
     chosenTableRows.forEach(id => {
       sendRequest(
         BASIC_URL + 'recommendation_conferences/', 
@@ -131,7 +132,18 @@ function ViewingConferences({onClick}) {
           });
         }}
       />
-      <ModalWindow active={modalActive} setActive={setModalActive} onConfirm={addToRecomendations}/>
+
+      <ModalWindow title={'Оценка для рекомендательной системы'}
+        active={modalActive} setActive={setModalActive}
+        onConfirm={(data) => {
+          if (!!data.rating) {
+            addToRecomendations(data.rating)
+          }
+        }}
+        dataInitialState = {{rating: ''}}
+        renderFunction={InputForm}
+      />
+
     </div>
   )
 }

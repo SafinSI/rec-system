@@ -18,7 +18,7 @@ function AuthorizationWindow({ active, setActive, setAuth }) {
           type="password" placeholder={"Пароль"}
           onChange = {e => setPassword(e.target.value)}
         />
-        <button className="square-button" 
+        <button className="square-button"
           onClick={() => {
             makeAuthorization(login, password)
             .then(result => {

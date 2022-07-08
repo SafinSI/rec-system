@@ -47,3 +47,9 @@
     border-bottom: 2px #ccd7ff solid;
     color: black;
 }
+
+.footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
