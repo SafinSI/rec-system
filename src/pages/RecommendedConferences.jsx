@@ -8,6 +8,7 @@ import Select from '../components/Select/Select';
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
 import RatingInput from '../components/RatingInput/RatingInput';
+import SortingCell from '../components/SortingCell/SortingCell'
 
 
 import getActualURL from '../utils/getActualURL'
@@ -80,21 +81,13 @@ function RecommendedConferences({onClick}) {
 
   // Изменение url
   const changeSortField = (field) => {
-    const commands = {
-      'Номер рекомендации': 'id',
-      'Оценка пользователя': 'rf_label',
-      'Оценка системы'        : 'recommendation_rating', // проверить сортировку
-      'Конференция': 'conference',
-    }
-    if (commands.hasOwnProperty(field)) {
-      setUrlState(prev => {
-        return {
-          ...prev,
-          sortField: commands[field],
-          typeSort: !prev.typeSort
-        }
-      });
-    }
+    setUrlState(prev => {
+      return {
+        ...prev,
+        sortField: field,
+        typeSort: !prev.typeSort
+      }
+    });
   }
 
   const changeSearchQuery = (event, input) => {
@@ -127,17 +120,37 @@ function RecommendedConferences({onClick}) {
         dataSelector={conferenceDataSelector}
         choiseRows={choiceTableElements}
         columns={[
-          'Номер рекомендации',
-          <RatingInput id={1} name='Оценка пользователя'
-            onChange={({min, max}) => setFilterState((prev) => (
-              {...prev, rf_label__gte: min, rf_label__lte: max}))}/>,
-          <RatingInput id={2} name='Оценка системы' 
-            onChange={({min, max}) => setFilterState((prev) => (
-              {...prev, recommendation_rating__gte: min, recommendation_rating__lte: max}))}
-            />,
-          'Конференция'
+          <SortingCell
+            name={'Номер рекомендации'} id={'id'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          <SortingCell
+            name={'Оценка пользователя'} id={'rf_label'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          >
+            <RatingInput
+              onChange={({min, max}) => setFilterState((prev) => (
+                {...prev, rf_label__gte: min, rf_label__lte: max}))}
+            />
+          </SortingCell>,
+          <SortingCell
+            name={'Оценка системы'} id={'recommendation_rating'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          >
+            <RatingInput
+              onChange={({min, max}) => setFilterState((prev) => (
+                {...prev, recommendation_rating__gte: min, recommendation_rating__lte: max}))}
+            />
+          </SortingCell>,
+          <SortingCell
+            name={'Конференции'} id={'conference'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />
         ]}
-        action={changeSortField}
       />
       <PageSwitcher pageMount={pageMount}
         currentPage={urlState.page}

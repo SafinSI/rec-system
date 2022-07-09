@@ -1,0 +1,21 @@
+import React from "react";
+import styles from './style.module.css';
+
+function SortingCell({name, id, sortField, typeSort, onClick, children}) {
+  return (
+    <div className={styles.wrapper} onClick={() => onClick(id)}>
+      <p className={styles.name}>{name}</p>
+      <div className={styles.arrows}>
+        <div className={styles.arrow}
+          style={{ borderBottom: `5px solid ${(id === sortField & typeSort)? '#597dff': '#c0c0c0'}`}}
+        />
+        <div className={styles.arrow}
+          style={{borderTop: `5px solid ${(id === sortField & !typeSort)? '#597dff': '#c0c0c0'}`}}
+        />
+      </div>
+      {children}
+    </div>
+  )
+}
+
+export default SortingCell;

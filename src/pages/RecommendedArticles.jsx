@@ -7,6 +7,7 @@ import InputForm from "../components/ModalWindow/ModalBodyForms/InputForm"
 import Select from '../components/Select/Select';
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
+import SortingCell from "../components/SortingCell/SortingCell";
 import RatingInput from '../components/RatingInput/RatingInput';
 
 import getActualURL from '../utils/getActualURL';
@@ -43,7 +44,7 @@ function RecommendedArticles({onClick}) {
   // get data from server
   useEffect(() => {
     sendRequest(getActualURL(urlState, filtersState))
-    .then(response => { 
+    .then(response => {
       setArticles(response.results)
       // set pagemount
       setPageMount(Math.ceil(response.count/urlState.pageLen))
@@ -77,21 +78,13 @@ function RecommendedArticles({onClick}) {
 
   // Изменение url
   const changeSortField = (field) => {
-    const commands = {
-      'Номер рекомендации': 'id',
-      'Оценка пользователя': 'rating',
-      'Оценка системы': 'recommendation_rating', // проверить сортировку
-      'Статья': 'article',
-    }
-    if (commands.hasOwnProperty(field)) {
-      setUrlState(prev => {
-        return {
-          ...prev,
-          sortField: commands[field],
-          typeSort: !prev.typeSort
-        }
-      });
-    }
+    setUrlState(prev => {
+      return {
+        ...prev,
+        sortField: field,
+        typeSort: !prev.typeSort
+      }
+    });
   }
 
   const changeSearchQuery = (event, input) => {
@@ -120,22 +113,41 @@ function RecommendedArticles({onClick}) {
         disabled={(chosenTableRows.length > 0)?"": "disabled"}
         onClick={() => setModalActive(true)}>Обновить рейтинг
       </button>
+
       <Table data={articles} 
         dataSelector={articleDataSelector}
         choiseRows={choiceTableElements}
         columns={[
-          'Номер рекомендации',
-          <RatingInput id={1} name='Оценка пользователя'
-            onChange={({min, max}) => setFilterState((prev) => (
-              {...prev, rating__gte: min, rating__lte: max}))}/>,
-          <RatingInput id={2} name='Оценка системы' 
-            onChange={({min, max}) => setFilterState((prev) => (
-              {...prev, recommendation_rating__gte: min, recommendation_rating__lte: max}))}
-            />,
-          'Статья', 'Классы статьи'
+          <SortingCell name={'Номер рекомендации'} id={'id'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          <SortingCell name={'Оценка пользователя'} id={'rating'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          >
+            <RatingInput 
+              onChange={({min, max}) => setFilterState((prev) => (
+                {...prev, rating__gte: min, rating__lte: max}))}
+            />
+          </SortingCell>,
+          <SortingCell name={'Оценка системы' } id={'recommendation_rating'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          >
+            <RatingInput 
+              onChange={({min, max}) => setFilterState((prev) => (
+                {...prev, recommendation_rating__gte: min, recommendation_rating__lte: max}))}
+            />
+          </SortingCell>,
+          <SortingCell name={'Статья'} id={'article'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          'Классы статьи'
         ]}
-        action={changeSortField}
       />
+
       <PageSwitcher pageMount={pageMount}
         currentPage={urlState.page}
         onClick={(pageNum) => {

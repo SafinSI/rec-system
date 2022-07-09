@@ -1,11 +1,4 @@
 .root {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.inputs {
   display: flex;
   gap: 10px;
   max-width: 150px;

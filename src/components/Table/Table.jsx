@@ -4,12 +4,12 @@ import TableHeader from "./TableHeader/TableHeader";
 import tableStyle from "./TableStyle.module.css";
 
 
-function Table({ data, dataSelector, choiseRows, columns, action }) {
+function Table({ data, dataSelector, choiseRows, columns }) {
   console.log('render table')
   return (
     <div className={tableStyle['table-wrapper']}>
       <table className={tableStyle.table}>
-        <TableHeader columns={columns} action={action}/>
+        <TableHeader columns={columns}/>
         <tbody>
           {
             (data.length > 0)?

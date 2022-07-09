@@ -6,6 +6,7 @@ import ModalWindow from "../components/ModalWindow/ModalWindow";
 import Select from '../components/Select/Select'
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
+import SortingCell from "../components/SortingCell/SortingCell";
 import SelectAndInputForm from '../components/ModalWindow/ModalBodyForms/SelectAndInputForm'
 
 import getActualURL from '../utils/getActualURL'
@@ -23,7 +24,6 @@ function articleDataSelector(item) {
     classification_labels: item.classification_labels.map(item => item.classification_label.name).join(' ')
   }
 }
-
 
 function ViewingArticles({onClick}) {
   const classificationLabels = useRef([])
@@ -87,20 +87,13 @@ function ViewingArticles({onClick}) {
 
   // Изменение url
   const changeSortField = (field) => {
-    const commands = {
-      'Номер статьи': 'id',
-      'Название': 'name',
-      'Ключевые слова': 'keywords',
-    }
-    if (commands.hasOwnProperty(field)) {
-      setUrlState(prev => {
-        return {
-          ...prev,
-          sortField: commands[field],
-          typeSort: !prev.typeSort
-        }
-      });
-    }
+    setUrlState(prev => {
+      return {
+        ...prev,
+        sortField: field,
+        typeSort: !prev.typeSort
+      }
+    });
   }
 
   const changeSearchQuery = (event, input) => {
@@ -129,11 +122,29 @@ function ViewingArticles({onClick}) {
         disabled={(chosenTableRows.length > 0)?"": "disabled"}
         onClick={() => setModalActive(true)}>Добавить к рекомендациям
       </button>
+
       <Table data={articles} 
         dataSelector={articleDataSelector}
         choiseRows={choiceTableElements}
-        columns={['Номер статьи', 'Название', 'Ключевые слова',	'Авторы', 'Классы статьи']}
-        action={changeSortField}
+        columns={[
+          <SortingCell
+            name={'Номер статьи'} id={'id'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          <SortingCell
+            name={'Название'} id={'name'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          <SortingCell 
+            name={'Ключевые слова'} id={'keywords'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          'Авторы', 
+          'Классы статьи'
+        ]}
       />
       <PageSwitcher pageMount={pageMount}
         currentPage={urlState.page}

@@ -6,6 +6,7 @@ import ModalWindow from "../components/ModalWindow/ModalWindow";
 import Select from '../components/Select/Select'
 import SearchForm from "../components/SearchForm/SearchForm";
 import PageSwitcher from '../components/PageSwitcher/PageSwitcher';
+import SortingCell from '../components/SortingCell/SortingCell';
 
 import getActualURL from '../utils/getActualURL'
 import sendRequest from '../utils/sendRequest'
@@ -73,20 +74,13 @@ function ViewingConferences({onClick}) {
 
   // Изменение url
   const changeSortField = (field) => {
-    const commands = {
-      'Номер статьи': 'id',
-      'Название': 'name',
-      'Ключевые слова': 'keywords',
-    }
-    if (commands.hasOwnProperty(field)) {
-      setUrlState(prev => {
-        return {
-          ...prev,
-          sortField: commands[field],
-          typeSort: !prev.typeSort
-        }
-      });
-    }
+    setUrlState(prev => {
+      return {
+        ...prev,
+        sortField: field,
+        typeSort: !prev.typeSort
+      }
+    });
   }
 
   const changeSearchQuery = (event, input) => {
@@ -115,11 +109,22 @@ function ViewingConferences({onClick}) {
         disabled={(chosenTableRows.length > 0)?"": "disabled"}
         onClick={() => setModalActive(true)}>Добавить к рекомендациям
       </button>
+
       <Table data={articles} 
         dataSelector={сonferencesDataSelector}
         choiseRows={choiceTableElements}
-        columns={['Номер статьи', 'Название']}
-        action={changeSortField}
+        columns={[
+          <SortingCell
+            name={'Номер статьи'} id={'id'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          <SortingCell
+            name={'Название'} id={'name'}
+            sortField={urlState.sortField} typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />
+        ]}
       />
       <PageSwitcher pageMount={pageMount}
         currentPage={urlState.page}
