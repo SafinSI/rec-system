@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import getValidNumber from "../../utils/getValidNumber";
 import styles from "./style.module.css";
 
-import { MIN_RATING, MAX_RATING } from "../../environmentConstants";
+import { MIN_RATING, MAX_RATING } from "../../config";
 
-function RatingInput({ onChange }) {
+export const RatingInput = ({ onChange }) => {
   const [rating, setRating] = useState({ min: "", max: "" });
   return (
     <form className={styles.root}>
@@ -46,6 +46,4 @@ function RatingInput({ onChange }) {
       />
     </form>
   );
-}
-
-export default RatingInput;
+};

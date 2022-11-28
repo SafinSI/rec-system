@@ -1,9 +1,9 @@
 import { React } from "react";
-import Select from "../../Select/Select";
+import { Select } from "../../Select";
 import getValidNumber from "../../../utils/getValidNumber";
-import { MIN_RATING, MAX_RATING } from "../../../environmentConstants";
+import { MIN_RATING, MAX_RATING } from "../../../config";
 
-function SelectAndInputForm({ data, setData, options }) {
+export const SelectAndInputForm = ({ data, setData, options }) => {
   return (
     <>
       <input
@@ -26,6 +26,4 @@ function SelectAndInputForm({ data, setData, options }) {
       />
     </>
   );
-}
-
-export default SelectAndInputForm;
+};

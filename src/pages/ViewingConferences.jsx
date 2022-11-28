@@ -1,19 +1,21 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import Table from "../components/Table/Table";
-import ModalWindow from "../components/ModalWindow/ModalWindow";
-import Select from "../components/Select/Select";
-import SearchForm from "../components/SearchForm/SearchForm";
-import PageSwitcher from "../components/PageSwitcher/PageSwitcher";
-import SortingCell from "../components/SortingCell/SortingCell";
+import {
+  Table,
+  ModalWindow,
+  InputForm,
+  Select,
+  SearchForm,
+  PageSwitcher,
+  SortingCell,
+} from "../components";
 
 import getActualURL from "../utils/getActualURL";
 import sendRequest from "../utils/sendRequest";
-import { BASIC_URL, PAGE_LENS } from "../environmentConstants";
-import InputForm from "../components/ModalWindow/ModalBodyForms/InputForm";
+import { BASIC_URL, PAGE_LENS } from "../config";
 
-function сonferencesDataSelector(item) {
+function conferencesDataSelector(item) {
   return {
     id: item.id,
     name: (
@@ -24,7 +26,7 @@ function сonferencesDataSelector(item) {
   };
 }
 
-function ViewingConferences({ onClick }) {
+export function ViewingConferences({ onClick }) {
   const [articles, setArticles] = useState([]);
   const [chosenTableRows, setChosenTableRows] = useState([]);
   const [modalActive, setModalActive] = useState(false);
@@ -119,7 +121,7 @@ function ViewingConferences({ onClick }) {
 
       <Table
         data={articles}
-        dataSelector={сonferencesDataSelector}
+        dataSelector={conferencesDataSelector}
         choiseRows={choiceTableElements}
         columns={[
           <SortingCell
@@ -166,5 +168,3 @@ function ViewingConferences({ onClick }) {
     </div>
   );
 }
-
-export default ViewingConferences;

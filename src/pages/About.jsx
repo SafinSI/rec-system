@@ -1,8 +1,8 @@
 import React from "react";
-import ContactsList from "../components/ContactsList/ContactsList";
-import { creators } from "../environmentConstants";
+import { ContactsList } from "../components";
+import { creators } from "../config";
 
-function About({ onClick }) {
+export function About({ onClick }) {
   return (
     <div className="main" onClick={onClick}>
       <h2 className="main_header1">О нас</h2>
@@ -27,5 +27,3 @@ function About({ onClick }) {
     </div>
   );
 }
-
-export default About;

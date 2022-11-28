@@ -1,5 +1,5 @@
 import sendRequest from "./sendRequest";
-import { BASIC_URL } from "../environmentConstants";
+import { BASIC_URL } from "../config";
 
 function makeAuthorization(username, password) {
   return sendRequest(

@@ -1,8 +1,8 @@
 import { React } from "react";
 import getValidNumber from "../../../utils/getValidNumber";
-import { MIN_RATING, MAX_RATING } from "../../../environmentConstants";
+import { MIN_RATING, MAX_RATING } from "../../../config";
 
-function InputForm({ data, setData }) {
+export function InputForm({ data, setData }) {
   return (
     <>
       <input
@@ -20,5 +20,3 @@ function InputForm({ data, setData }) {
     </>
   );
 }
-
-export default InputForm;

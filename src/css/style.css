@@ -18,12 +18,12 @@ body {
 }
 
 .link {
-  color: #7392FF;
+  color: #7392ff;
   text-decoration: none;
 }
 
-.link:hover{
-  color:#597dff;
+.link:hover {
+  color: #597dff;
 }
 
 .text-information {
@@ -50,13 +50,12 @@ body {
 }
 
 .main_header1 {
-  margin: 0px 0px calc(2vh + 5px) 0px; 
+  margin: 0px 0px calc(2vh + 5px) 0px;
   font-size: calc(2vh + 1vw + 5px);
   font-weight: 500;
   padding-bottom: 5px;
   border-bottom: 2px #ccd7ff solid;
 }
-
 
 #root {
   display: grid;
@@ -87,12 +86,12 @@ body {
   border: none;
   border-radius: 5px;
   padding: 8px 20px;
-  background-color: #7392FF;
+  background-color: #7392ff;
   color: #fff;
   transition: background-color 0.5s;
 }
 
-.square-button:hover{
+.square-button:hover {
   background-color: #597dff;
 }
 
@@ -106,33 +105,35 @@ body {
   background-color: #cccccc;
 }
 
-
-.grey-button:hover{
+.grey-button:hover {
   background-color: #c0c0c0;
 }
-
 
 @media (max-width: 970px) {
   .App {
     grid-template-rows: max-content auto 1fr;
-    font-size: calc(15px + 1vh); }
+    font-size: calc(15px + 1vh);
+  }
 
   .main {
     grid-column: span 2;
-    padding: 20px 12px; }
+    padding: 20px 12px;
+  }
 
   .text-area {
     order: 1;
-    font-size: calc(12px + 1vh); }
+    font-size: calc(12px + 1vh);
+  }
 
   .square-button {
     order: 2;
-    font-size: calc(12px + 1vh); }
+    font-size: calc(12px + 1vh);
+  }
 
   .hidden {
-    display: none; } 
+    display: none;
+  }
 }
-
 
 .pages-num-wrapper {
   display: flex;
@@ -143,11 +144,11 @@ body {
   background-color: transparent;
 }
 
-.pages-num-text{
+.pages-num-text {
   display: flex;
   gap: 5px;
   align-items: center;
   border-radius: 5px;
   padding: 8px;
-  background-color: white;
+  background-color: #fff;
 }

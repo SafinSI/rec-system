@@ -1,9 +1,8 @@
-import ThematicsList from "../components/ThematicsList/ThematicsList";
-import ThematicsAdderForm from "../components/ThematicsAdderForm/ThematicsAdderForm";
+import { ThematicsList, ThematicsAdderForm } from "../components";
 import { useState } from "react";
 import React from "react";
 
-function RecomendationThematics({ onClick }) {
+export function RecomendationThematics({ onClick }) {
   const [themes, setThemes] = useState([
     { name: "ИАД", id: 1 },
     { name: "Машинное Обучение", id: 2 },
@@ -23,5 +22,3 @@ function RecomendationThematics({ onClick }) {
     </main>
   );
 }
-
-export default RecomendationThematics;

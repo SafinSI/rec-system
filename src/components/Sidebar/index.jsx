@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import style from "./style.module.css";
 
-function Sidebar({ links, activeState, changeActiveState }) {
+export const Sidebar = ({ links, activeState, changeActiveState }) => {
   return (
     <nav
       className={style.sidenav}
@@ -31,6 +31,4 @@ function Sidebar({ links, activeState, changeActiveState }) {
       </div>
     </nav>
   );
-}
-
-export default Sidebar;
+};

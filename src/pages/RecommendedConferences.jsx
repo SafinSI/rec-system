@@ -1,18 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-
-import Table from "../components/Table/Table";
-import ModalWindow from "../components/ModalWindow/ModalWindow";
-import InputForm from "../components/ModalWindow/ModalBodyForms/InputForm";
-import Select from "../components/Select/Select";
-import SearchForm from "../components/SearchForm/SearchForm";
-import PageSwitcher from "../components/PageSwitcher/PageSwitcher";
-import RatingInput from "../components/RatingInput/RatingInput";
-import SortingCell from "../components/SortingCell/SortingCell";
-
+import {
+  Table,
+  ModalWindow,
+  InputForm,
+  Select,
+  SearchForm,
+  PageSwitcher,
+  SortingCell,
+  RatingInput,
+} from "../components";
 import getActualURL from "../utils/getActualURL";
 import sendRequest from "../utils/sendRequest";
-import { BASIC_URL, PAGE_LENS } from "../environmentConstants";
+import { BASIC_URL, PAGE_LENS } from "../config";
 
 function conferenceDataSelector(item) {
   return {
@@ -32,7 +32,7 @@ function conferenceDataSelector(item) {
   };
 }
 
-function RecommendedConferences({ onClick }) {
+export const RecommendedConferences = ({ onClick }) => {
   const [articles, setArticles] = useState([]);
   const [chosenTableRows, setChosenTableRows] = useState([]);
   const [modalActive, setModalActive] = useState(false);
@@ -208,6 +208,4 @@ function RecommendedConferences({ onClick }) {
       />
     </div>
   );
-}
-
-export default RecommendedConferences;
+};
