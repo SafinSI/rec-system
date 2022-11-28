@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthorizationWindow } from "../AuthorizationWindow";
-import AuthContext from "../../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import style from "./style.module.css";
 
 export const Header = ({ onBurgerButtonClick }) => {

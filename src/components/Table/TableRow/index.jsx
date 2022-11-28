@@ -9,5 +9,3 @@ export const TableRow = (props) => {
     </tr>
   );
 };
-
-export default TableRow;

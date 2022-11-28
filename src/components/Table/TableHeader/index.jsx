@@ -9,5 +9,3 @@ export const TableHeader = ({ columns }) => {
     </thead>
   );
 };
-
-export default TableHeader;

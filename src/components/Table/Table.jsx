@@ -1,9 +1,9 @@
 import React from "react";
-import TableRow from "./TableRow";
-import TableHeader from "./TableHeader";
+import { TableRow } from "./TableRow";
+import { TableHeader } from "./TableHeader";
 import tableStyle from "./TableStyle.module.css";
 
-function Table({ data, dataSelector, choiseRows, columns }) {
+const TableView = ({ data, dataSelector, choiseRows, columns }) => {
   console.log("render table");
   return (
     <div className={tableStyle["table-wrapper"]}>
@@ -36,6 +36,6 @@ function Table({ data, dataSelector, choiseRows, columns }) {
       </table>
     </div>
   );
-}
+};
 
-export default React.memo(Table);
+export const Table = React.memo(TableView);

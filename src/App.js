@@ -9,7 +9,7 @@ import { ViewingConferences } from "./pages/ViewingConferences";
 import { ViewingArticles } from "./pages/ViewingArticles";
 import { RecommendedArticles } from "./pages/RecommendedArticles";
 import { RecommendedConferences } from "./pages/RecommendedConferences";
-import AuthContext from "./contexts/AuthContext";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
   const [sidebarState, setSidebarState] = useState(false);

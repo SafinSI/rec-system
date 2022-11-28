@@ -2,7 +2,7 @@ import { React } from "react";
 import getValidNumber from "../../../utils/getValidNumber";
 import { MIN_RATING, MAX_RATING } from "../../../config";
 
-export function InputForm({ data, setData }) {
+export const InputForm = ({ data, setData }) => {
   return (
     <>
       <input
@@ -19,4 +19,4 @@ export function InputForm({ data, setData }) {
       />
     </>
   );
-}
+};
