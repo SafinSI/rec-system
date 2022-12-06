@@ -1,4 +1,4 @@
-export * from "./AuthorizationWindow";
+export * from "./AuthorizationModal";
 export * from "./ContactsList";
 export * from "./Header";
 export * from "./ModalWindow";

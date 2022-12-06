@@ -1,34 +1,41 @@
+import { FiltersState, UrlState } from "./types";
+
 const urlMap = {
-  page: 'page',
-  pageLen: 'page_size',
-  sort: 'ordering',
-  searchQuery: 'search',
+  page: "page",
+  pageLen: "page_size",
+  sort: "ordering",
+  searchQuery: "search",
 };
 
 function getSort(urlState) {
-  return `${urlState.typeSort ? '-' : ''}${urlState.sortField}`;
+  return `${urlState.typeSort ? "-" : ""}${urlState.sortField}`;
 }
 
-function getFilters(filtersState) {
+const getFilters = (filtersState: FiltersState): Array<string> => {
   // возвращает список фильтров, который нужно собрать
-  const filters = [];
+  const filters: Array<string> = [];
   Object.keys(filtersState).forEach((key) => {
     const filterParam = filtersState[key];
-    if (!!filterParam | filterParam === 0) {
+    if (!!filterParam || filterParam === 0) {
       filters.push(`${key}=${filterParam}`);
     }
   });
   return filters;
-}
+};
 
-function getActualURL(urlState, filtersState) {
+export const getActualURL = (
+  urlState: UrlState,
+  filtersState?: FiltersState
+) => {
   let actualUrl = urlState.base;
-  let queryParams = [];
+  let queryParams: Array<string> = [];
+  const urlCopy = urlState;
+  urlCopy["sort"] = getSort(urlState);
+
   // преобразуем sortOrdering и sortField в sort
-  urlState.sort = getSort(urlState);
   Object.keys(urlMap).forEach((key) => {
-    const urlParam = urlState[key];
-    if (!!urlParam | urlParam === 0) {
+    const urlParam = urlCopy[key];
+    if (!!urlParam || urlParam === 0) {
       queryParams.push(`${urlMap[key]}=${urlParam}`);
     }
   });
@@ -36,10 +43,8 @@ function getActualURL(urlState, filtersState) {
     queryParams = queryParams.concat(getFilters(filtersState));
   }
   if (queryParams.length > 0) {
-    actualUrl += `?${queryParams.join('&')}`;
+    actualUrl += `?${queryParams.join("&")}`;
   }
   console.log(actualUrl);
   return actualUrl;
-}
-
-export default getActualURL;
+};

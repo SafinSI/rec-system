@@ -1,21 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useRef } from "react";
 import {
   Table,
   ModalWindow,
-  InputForm,
   Select,
   SearchForm,
   PageSwitcher,
   SortingCell,
+  SelectAndInputForm,
 } from "../components";
 
-import getActualURL from "../utils/getActualURL";
-import sendRequest from "../utils/sendRequest";
+import { getActualURL, sendRequest } from "../utils";
 import { BASIC_URL, PAGE_LENS } from "../config";
 
-function conferencesDataSelector(item) {
+function articleDataSelector(item) {
   return {
     id: item.id,
     name: (
@@ -23,22 +21,35 @@ function conferencesDataSelector(item) {
         {item.name}
       </a>
     ),
+    keywords: item.keywords,
+    authors: item.authors.map((item) => item.name).join(", "),
+    classification_labels: item.classification_labels
+      .map((item) => item.classification_label.name)
+      .join(" "),
   };
 }
 
-export function ViewingConferences({ onClick }) {
+export const ViewingArticles = ({ onClick }) => {
+  const classificationLabels = useRef([]);
   const [articles, setArticles] = useState([]);
   const [chosenTableRows, setChosenTableRows] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [pageMount, setPageMount] = useState(0);
   const [urlState, setUrlState] = useState({
-    base: BASIC_URL + "conferences/",
+    base: BASIC_URL + "articles/",
     page: 1,
     pageLen: 10,
     sortField: "id",
     typeSort: false,
     searchQuery: "",
   });
+
+  // get classification labels
+  useEffect(() => {
+    sendRequest(BASIC_URL + "classification_labels/").then((response) => {
+      classificationLabels.current = response.results;
+    });
+  }, []);
 
   // get data from server
   useEffect(() => {
@@ -61,14 +72,15 @@ export function ViewingConferences({ onClick }) {
   };
 
   // request to add recomendations
-  const addToRecomendations = (rating) => {
+  const addToRecomendations = (rating, classification_label) => {
     chosenTableRows.forEach((id) => {
       sendRequest(
-        BASIC_URL + "recommendation_conferences/",
+        BASIC_URL + "recommendation_articles/",
         "POST",
         JSON.stringify({
           rating: rating,
-          conference: id,
+          article: id,
+          classification_label: classification_label,
         })
       );
     });
@@ -113,7 +125,7 @@ export function ViewingConferences({ onClick }) {
       <SearchForm onClick={changeSearchQuery} />
       <button
         className="square-button"
-        disabled={chosenTableRows.length > 0 ? "" : "disabled"}
+        disabled={chosenTableRows.length === 0}
         onClick={() => setModalActive(true)}
       >
         Добавить к рекомендациям
@@ -121,7 +133,7 @@ export function ViewingConferences({ onClick }) {
 
       <Table
         data={articles}
-        dataSelector={conferencesDataSelector}
+        dataSelector={articleDataSelector}
         choiseRows={choiceTableElements}
         columns={[
           <SortingCell
@@ -138,6 +150,15 @@ export function ViewingConferences({ onClick }) {
             typeSort={urlState.typeSort}
             onClick={(field) => changeSortField(field)}
           />,
+          <SortingCell
+            name={"Ключевые слова"}
+            id={"keywords"}
+            sortField={urlState.sortField}
+            typeSort={urlState.typeSort}
+            onClick={(field) => changeSortField(field)}
+          />,
+          "Авторы",
+          "Классы статьи",
         ]}
       />
       <PageSwitcher
@@ -153,18 +174,30 @@ export function ViewingConferences({ onClick }) {
         }}
       />
 
-      <ModalWindow
-        title={"Оценка для рекомендательной системы"}
-        active={modalActive}
-        setActive={setModalActive}
-        onConfirm={(data) => {
-          if (!!data.rating) {
-            addToRecomendations(data.rating);
+      {classificationLabels.current.length > 0 ? (
+        <ModalWindow
+          title={"Оценка для рекомендательной системы"}
+          isActive={modalActive}
+          setActive={setModalActive}
+          onConfirm={(data) => {
+            if (!!data.rating) {
+              addToRecomendations(data.rating, data.label);
+            }
+          }}
+          dataInitialState={{
+            rating: "",
+            label: classificationLabels?.current[0]?.id,
+          }}
+          renderFunction={(args) =>
+            SelectAndInputForm({
+              ...args,
+              options: classificationLabels?.current,
+            })
           }
-        }}
-        dataInitialState={{ rating: "" }}
-        renderFunction={InputForm}
-      />
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
-}
+};

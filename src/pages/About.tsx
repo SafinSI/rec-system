@@ -2,14 +2,15 @@ import React from "react";
 import { ContactsList } from "../components";
 import { creators } from "../config";
 
-export function About({ onClick }) {
+type AboutProps = { onClick?: () => void };
+
+export const About: React.FC<AboutProps> = ({ onClick }) => {
   return (
     <div className="main" onClick={onClick}>
       <h2 className="main_header1">О нас</h2>
       <p className="text-information">
-        На данном сайте представленна персонализированная система поддержки
-        научной деятельности. Она разработанна специально для преподавателей
-        кафедры
+        Данный сайт представляет персонализированную систему поддержки научной
+        деятельности. Она разработанна специально для преподавателей кафедры
         <a
           className="link"
           href="http://uit.mpei.ru/"
@@ -26,4 +27,4 @@ export function About({ onClick }) {
       <ContactsList data={creators} />
     </div>
   );
-}
+};

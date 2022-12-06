@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthorizationWindow } from "../AuthorizationWindow";
+import { AuthorizationModal } from "../AuthorizationModal";
 import { AuthContext } from "../../contexts/AuthContext";
 import style from "./style.module.css";
 
@@ -31,7 +31,7 @@ export const Header = ({ onBurgerButtonClick }) => {
           Войти
         </button>
       )}
-      <AuthorizationWindow
+      <AuthorizationModal
         active={modalActive}
         setActive={setModalActive}
         setAuth={setIsAuth}

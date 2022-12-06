@@ -1,7 +1,16 @@
 import React from "react";
 import styles from "./style.module.css";
 
-export const SortingCell = ({
+type SortingCellProps = {
+  name: string;
+  id: string;
+  sortField: string;
+  typeSort: boolean;
+  onClick: (id: string) => void;
+  children?: JSX.Element;
+};
+
+export const SortingCell: React.FC<SortingCellProps> = ({
   name,
   id,
   sortField,
@@ -17,7 +26,7 @@ export const SortingCell = ({
           className={styles.arrow}
           style={{
             borderBottom: `5px solid ${
-              (id === sortField) & typeSort ? "#597dff" : "#c0c0c0"
+              id === sortField && typeSort ? "#597dff" : "#c0c0c0"
             }`,
           }}
         />
@@ -25,7 +34,7 @@ export const SortingCell = ({
           className={styles.arrow}
           style={{
             borderTop: `5px solid ${
-              (id === sortField) & !typeSort ? "#597dff" : "#c0c0c0"
+              id === sortField && !typeSort ? "#597dff" : "#c0c0c0"
             }`,
           }}
         />

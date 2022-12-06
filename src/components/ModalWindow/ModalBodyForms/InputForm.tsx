@@ -1,9 +1,8 @@
-import { React } from "react";
-import { Select } from "../../Select";
-import getValidNumber from "../../../utils/getValidNumber";
+import React from "react";
+import { getValidNumber } from "../../../utils";
 import { MIN_RATING, MAX_RATING } from "../../../config";
 
-export const SelectAndInputForm = ({ data, setData, options }) => {
+export const InputForm = ({ data, setData }) => {
   return (
     <>
       <input
@@ -17,12 +16,6 @@ export const SelectAndInputForm = ({ data, setData, options }) => {
             rating: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
           }))
         }
-      />
-      <Select
-        onChange={(e) =>
-          setData((prev) => ({ ...prev, label: e.target.value }))
-        }
-        options={options}
       />
     </>
   );

@@ -10,43 +10,44 @@ import {
   SortingCell,
   RatingInput,
 } from "../components";
-import getActualURL from "../utils/getActualURL";
-import sendRequest from "../utils/sendRequest";
+
+import { sendRequest, getActualURL } from "../utils";
 import { BASIC_URL, PAGE_LENS } from "../config";
 
-function articleDataSelector(item) {
+function conferenceDataSelector(item) {
   return {
     id: item.id,
-    rating: item.rating,
+    rating: item.rf_label,
     recommendation_rating: item.recommendation_rating,
     name: (
       <a
         className="link"
         rel="noreferrer"
         target="_blank"
-        href={item.article.full_url}
+        href={item.conference.full_url}
       >
-        {item.article.name}
+        {item.conference.name}
       </a>
     ),
-    classification_label: item.classification_label.name,
   };
 }
 
-export function RecommendedArticles({ onClick }) {
+export const RecommendedConferences = ({ onClick }) => {
   const [articles, setArticles] = useState([]);
   const [chosenTableRows, setChosenTableRows] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [pageMount, setPageMount] = useState(0);
-  const [filtersState, setFilterState] = useState({});
   const [urlState, setUrlState] = useState({
-    base: BASIC_URL + "recommendation_articles/",
+    base: BASIC_URL + "recommendation_conferences/",
     page: 1,
     pageLen: 10,
     sortField: "id",
     typeSort: false,
     searchQuery: "",
   });
+
+  const [filtersState, setFilterState] = useState({});
+  console.log("a", filtersState);
 
   // get data from server
   useEffect(() => {
@@ -72,10 +73,10 @@ export function RecommendedArticles({ onClick }) {
   const addToRecomendations = (rating) => {
     chosenTableRows.forEach((id) => {
       sendRequest(
-        BASIC_URL + "recommendation_articles/" + id + "/",
+        BASIC_URL + "recommendation_conferences/" + id + "/",
         "PATCH",
         JSON.stringify({
-          rating: rating,
+          rf_label: rating,
         })
       );
     });
@@ -120,15 +121,14 @@ export function RecommendedArticles({ onClick }) {
       <SearchForm onClick={changeSearchQuery} />
       <button
         className="square-button"
-        disabled={chosenTableRows.length > 0 ? "" : "disabled"}
+        disabled={chosenTableRows.length === 0}
         onClick={() => setModalActive(true)}
       >
         Обновить рейтинг
       </button>
-
       <Table
         data={articles}
-        dataSelector={articleDataSelector}
+        dataSelector={conferenceDataSelector}
         choiseRows={choiceTableElements}
         columns={[
           <SortingCell
@@ -140,7 +140,7 @@ export function RecommendedArticles({ onClick }) {
           />,
           <SortingCell
             name={"Оценка пользователя"}
-            id={"rating"}
+            id={"rf_label"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
             onClick={(field) => changeSortField(field)}
@@ -149,8 +149,8 @@ export function RecommendedArticles({ onClick }) {
               onChange={({ min, max }) =>
                 setFilterState((prev) => ({
                   ...prev,
-                  rating__gte: min,
-                  rating__lte: max,
+                  rf_label__gte: min,
+                  rf_label__lte: max,
                 }))
               }
             />
@@ -173,16 +173,14 @@ export function RecommendedArticles({ onClick }) {
             />
           </SortingCell>,
           <SortingCell
-            name={"Статья"}
-            id={"article"}
+            name={"Конференции"}
+            id={"conference"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
             onClick={(field) => changeSortField(field)}
           />,
-          "Классы статьи",
         ]}
       />
-
       <PageSwitcher
         pageMount={pageMount}
         currentPage={urlState.page}
@@ -198,7 +196,7 @@ export function RecommendedArticles({ onClick }) {
 
       <ModalWindow
         title={"Оценка для рекомендательной системы"}
-        active={modalActive}
+        isActive={modalActive}
         setActive={setModalActive}
         onConfirm={(data) => {
           if (!!data.rating) {
@@ -210,4 +208,4 @@ export function RecommendedArticles({ onClick }) {
       />
     </div>
   );
-}
+};

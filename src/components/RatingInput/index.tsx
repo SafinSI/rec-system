@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import getValidNumber from "../../utils/getValidNumber";
+import { getValidNumber } from "../../utils";
 import styles from "./style.module.css";
 
 import { MIN_RATING, MAX_RATING } from "../../config";
@@ -12,7 +12,7 @@ export const RatingInput = ({ onChange }) => {
         className={styles.input}
         type="text"
         placeholder="от"
-        size="12"
+        size={12}
         value={rating.min}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => {
@@ -30,7 +30,7 @@ export const RatingInput = ({ onChange }) => {
         className={styles.input}
         type="text"
         placeholder="до"
-        size="12"
+        size={12}
         value={rating.max}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => {

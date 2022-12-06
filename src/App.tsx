@@ -1,19 +1,21 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageLayout } from "./components";
-import { About } from "./pages/About";
-import { HomePage } from "./pages/HomePage";
-import { MessagePage } from "./pages/MessagePage";
-import { RecomendationThematics } from "./pages/RecomendationThematics";
-import { ViewingConferences } from "./pages/ViewingConferences";
-import { ViewingArticles } from "./pages/ViewingArticles";
-import { RecommendedArticles } from "./pages/RecommendedArticles";
-import { RecommendedConferences } from "./pages/RecommendedConferences";
+import {
+  RecommendedArticles,
+  HomePage,
+  About,
+  MessagePage,
+  RecomendationThematics,
+  ViewingArticles,
+  ViewingConferences,
+  RecommendedConferences,
+} from "./pages";
 import { AuthContext } from "./contexts/AuthContext";
 
-function App() {
+export const App = () => {
   const [sidebarState, setSidebarState] = useState(false);
-  const [isAuth, setIsAuth] = useState(null);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const contextValue = useMemo(
     () => ({
@@ -109,6 +111,4 @@ function App() {
       </BrowserRouter>
     </AuthContext.Provider>
   );
-}
-
-export default App;
+};

@@ -1,7 +1,7 @@
-import sendRequest from "./sendRequest";
+import { sendRequest } from "./sendRequest";
 import { BASIC_URL } from "../config";
 
-function makeAuthorization(username, password) {
+export function makeAuthorization(username: string, password: string) {
   return sendRequest(
     BASIC_URL + "auth/login/",
     "POST",
@@ -13,5 +13,3 @@ function makeAuthorization(username, password) {
     return responce.token;
   });
 }
-
-export default makeAuthorization;

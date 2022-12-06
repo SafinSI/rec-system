@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import authStyle from "./ModalStyle.module.css";
-import makeAuthorization from "../../utils/makeAuthorization";
+import { makeAuthorization } from "../../utils";
 
-export const AuthorizationWindow = ({ active, setActive, setAuth }) => {
+export const AuthorizationModal = ({ active, setActive, setAuth }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Table,
   ModalWindow,
@@ -9,100 +9,34 @@ import {
   PageSwitcher,
   SortingCell,
   RatingInput,
-} from "../components";
-import getActualURL from "../utils/getActualURL";
-import sendRequest from "../utils/sendRequest";
-import { BASIC_URL, PAGE_LENS } from "../config";
+} from "../../components";
+import { BASIC_URL, PAGE_LENS } from "../../config";
+import { useURL } from "../../utils";
+import {
+  choiceTableElements,
+  changeSearchQuery,
+  changeSortField,
+  addToRecomendations,
+} from "./helpers";
+import { articleDataSelector } from "./articleDataSelector";
 
-function conferenceDataSelector(item) {
-  return {
-    id: item.id,
-    rating: item.rf_label,
-    recommendation_rating: item.recommendation_rating,
-    name: (
-      <a
-        className="link"
-        rel="noreferrer"
-        target="_blank"
-        href={item.conference.full_url}
-      >
-        {item.conference.name}
-      </a>
-    ),
-  };
-}
-
-export const RecommendedConferences = ({ onClick }) => {
+export function RecommendedArticles({ onClick }) {
   const [articles, setArticles] = useState([]);
   const [chosenTableRows, setChosenTableRows] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [pageMount, setPageMount] = useState(0);
-  const [urlState, setUrlState] = useState({
-    base: BASIC_URL + "recommendation_conferences/",
+  const { urlState, setUrlState, setFilterState } = useURL({
+    base: BASIC_URL + "recommendation_articles/",
     page: 1,
     pageLen: 10,
     sortField: "id",
     typeSort: false,
     searchQuery: "",
-  });
-
-  const [filtersState, setFilterState] = useState({});
-  console.log("a", filtersState);
-
-  // get data from server
-  useEffect(() => {
-    sendRequest(getActualURL(urlState, filtersState)).then((response) => {
+    action: (response, state) => {
       setArticles(response.results);
-      // set pagemount
-      setPageMount(Math.ceil(response.count / urlState.pageLen));
-      console.log("get articles from server");
-    });
-  }, [urlState, filtersState]);
-
-  const choiceTableElements = (elt) => {
-    setChosenTableRows((prevState) => {
-      if (prevState.indexOf(elt) === -1) {
-        return [...prevState, elt];
-      } else {
-        return prevState.filter((item) => item !== elt);
-      }
-    });
-  };
-
-  // request to add recomendations
-  const addToRecomendations = (rating) => {
-    chosenTableRows.forEach((id) => {
-      sendRequest(
-        BASIC_URL + "recommendation_conferences/" + id + "/",
-        "PATCH",
-        JSON.stringify({
-          rf_label: rating,
-        })
-      );
-    });
-    setModalActive(false);
-  };
-
-  // Изменение url
-  const changeSortField = (field) => {
-    setUrlState((prev) => {
-      return {
-        ...prev,
-        sortField: field,
-        typeSort: !prev.typeSort,
-      };
-    });
-  };
-
-  const changeSearchQuery = (event, input) => {
-    event.preventDefault();
-    setUrlState((prev) => {
-      return {
-        ...prev,
-        searchQuery: input,
-      };
-    });
-  };
+      setPageMount(Math.ceil(response.count / state.pageLen));
+    },
+  });
 
   return (
     <div className="main" onClick={onClick}>
@@ -118,39 +52,40 @@ export const RecommendedConferences = ({ onClick }) => {
         />
         <span className="pages-num-text">записей</span>
       </div>
-      <SearchForm onClick={changeSearchQuery} />
+      <SearchForm onClick={changeSearchQuery(setUrlState)} />
       <button
         className="square-button"
-        disabled={chosenTableRows.length > 0 ? "" : "disabled"}
+        disabled={chosenTableRows.length === 0}
         onClick={() => setModalActive(true)}
       >
         Обновить рейтинг
       </button>
+
       <Table
         data={articles}
-        dataSelector={conferenceDataSelector}
-        choiseRows={choiceTableElements}
+        dataSelector={articleDataSelector}
+        choiseRows={choiceTableElements(setChosenTableRows)}
         columns={[
           <SortingCell
             name={"Номер рекомендации"}
             id={"id"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
-            onClick={(field) => changeSortField(field)}
+            onClick={(field) => changeSortField(field, setUrlState)}
           />,
           <SortingCell
             name={"Оценка пользователя"}
-            id={"rf_label"}
+            id={"rating"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
-            onClick={(field) => changeSortField(field)}
+            onClick={(field) => changeSortField(field, setUrlState)}
           >
             <RatingInput
               onChange={({ min, max }) =>
                 setFilterState((prev) => ({
                   ...prev,
-                  rf_label__gte: min,
-                  rf_label__lte: max,
+                  rating__gte: min,
+                  rating__lte: max,
                 }))
               }
             />
@@ -160,7 +95,7 @@ export const RecommendedConferences = ({ onClick }) => {
             id={"recommendation_rating"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
-            onClick={(field) => changeSortField(field)}
+            onClick={(field) => changeSortField(field, setUrlState)}
           >
             <RatingInput
               onChange={({ min, max }) =>
@@ -173,12 +108,13 @@ export const RecommendedConferences = ({ onClick }) => {
             />
           </SortingCell>,
           <SortingCell
-            name={"Конференции"}
-            id={"conference"}
+            name={"Статья"}
+            id={"article"}
             sortField={urlState.sortField}
             typeSort={urlState.typeSort}
-            onClick={(field) => changeSortField(field)}
+            onClick={(field) => changeSortField(field, setUrlState)}
           />,
+          "Классы статьи",
         ]}
       />
       <PageSwitcher
@@ -193,14 +129,14 @@ export const RecommendedConferences = ({ onClick }) => {
           });
         }}
       />
-
       <ModalWindow
         title={"Оценка для рекомендательной системы"}
-        active={modalActive}
+        isActive={modalActive}
         setActive={setModalActive}
         onConfirm={(data) => {
           if (!!data.rating) {
-            addToRecomendations(data.rating);
+            addToRecomendations(data.rating, chosenTableRows);
+            setModalActive(false);
           }
         }}
         dataInitialState={{ rating: "" }}
@@ -208,4 +144,4 @@ export const RecommendedConferences = ({ onClick }) => {
       />
     </div>
   );
-};
+}
