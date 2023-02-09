@@ -1,41 +1,32 @@
-import React, { useContext } from "react";
-import { AuthorizationModal } from "../AuthorizationModal";
-import { AuthContext } from "../../contexts/AuthContext";
-import style from "./style.module.css";
+import React, { useContext } from "react"
+import { AuthorizationModal } from "../AuthorizationModal"
+import { AuthContext } from "../../contexts/AuthContext"
+import { token } from "../../utils"
+import style from "./style.module.css"
 
 export const Header = ({ onBurgerButtonClick }) => {
-  const [modalActive, setModalActive] = React.useState(false);
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const [modalActive, setModalActive] = React.useState(false)
+  const { isAuth, setIsAuth } = useContext(AuthContext)
   return (
     <header className={style.header}>
-      <button
-        className={style["burger-button"]}
-        onClick={onBurgerButtonClick}
-      />
+      <button className={style["burger-button"]} onClick={onBurgerButtonClick} />
       <div className={style.title}>НРекс</div>
       {isAuth ? (
         <button
           className={style["exit-button"]}
           onClick={() => {
-            sessionStorage.removeItem("Token");
-            setIsAuth(false);
+            token.removeToken()
+            setIsAuth(false)
           }}
         >
           Выйти
         </button>
       ) : (
-        <button
-          className={style["exit-button"]}
-          onClick={() => setModalActive(true)}
-        >
+        <button className={style["exit-button"]} onClick={() => setModalActive(true)}>
           Войти
         </button>
       )}
-      <AuthorizationModal
-        active={modalActive}
-        setActive={setModalActive}
-        setAuth={setIsAuth}
-      />
+      <AuthorizationModal active={modalActive} setActive={setModalActive} setAuth={setIsAuth} />
     </header>
-  );
-};
+  )
+}

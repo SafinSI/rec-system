@@ -6,7 +6,7 @@
   z-index: 5;
   display: flex;
   align-items: center;
-  background-color: #7392FF;
+  background-color: #7392ff;
   color: #fff;
   padding: 0px 16px;
   gap: 10px;
@@ -14,7 +14,7 @@
   max-height: 9vh;
   overflow: hidden;
 }
-  
+
 .burger-button {
   background-image: url("./menu_hamburger_burger_icon.svg");
   background-color: transparent;
@@ -26,14 +26,14 @@
   border: none;
   outline: none;
 }
-  
+
 .exit-button {
   height: calc(25px + 3vh + 1vw);
   color: white;
   border: none;
   outline: none;
   font-size: calc(5px + 2vh);
-  background-color: #7392FF;
+  background-color: #7392ff;
 }
 
 .title {
@@ -41,16 +41,16 @@
   flex-grow: 2;
 }
 
-
 @media (max-width: 970px) {
   .header {
-    padding: 0px 10px; }
-  
+    padding: 0px 10px;
+  }
+
   .exit-button {
     transform: translateX(0px);
   }
-    
-  .exit-button::before{
-    content: '';
+
+  .exit-button::before {
+    content: "";
   }
 }

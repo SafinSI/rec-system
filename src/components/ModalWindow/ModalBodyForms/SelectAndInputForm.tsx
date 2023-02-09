@@ -1,7 +1,7 @@
-import React from "react";
-import { Select } from "../../Select";
-import { getValidNumber } from "../../../utils/getValidNumber";
-import { MIN_RATING, MAX_RATING } from "../../../config";
+import React from "react"
+import { Select } from "../../Select"
+import { getValidNumber } from "../../../utils/getValidNumber"
+import { MIN_RATING, MAX_RATING } from "../../../config"
 
 export const SelectAndInputForm = ({ data, setData, options }) => {
   return (
@@ -14,16 +14,11 @@ export const SelectAndInputForm = ({ data, setData, options }) => {
         onChange={(e) =>
           setData((prev) => ({
             ...prev,
-            rating: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
+            rating: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
           }))
         }
       />
-      <Select
-        onChange={(e) =>
-          setData((prev) => ({ ...prev, label: e.target.value }))
-        }
-        options={options}
-      />
+      <Select onChange={(e) => setData((prev) => ({ ...prev, label: e.target.value }))} options={options} />
     </>
-  );
-};
+  )
+}

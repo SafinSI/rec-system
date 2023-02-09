@@ -1,3 +1,5 @@
+import React from "react"
+
 export const TableHeader = ({ columns }) => {
   return (
     <thead>
@@ -7,5 +9,5 @@ export const TableHeader = ({ columns }) => {
         ))}
       </tr>
     </thead>
-  );
-};
+  )
+}

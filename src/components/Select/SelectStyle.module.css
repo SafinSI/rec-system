@@ -1,17 +1,16 @@
 .select {
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('./arrow.svg');
-    background-repeat: no-repeat;
-    background-position-y: 50%;
-    background-position-x: calc(100% - 8px);
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("./arrow.svg");
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: calc(100% - 8px);
 }
 
 .option {
-    background-color: transparent;
+  background-color: transparent;
 }
-

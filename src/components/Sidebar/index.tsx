@@ -1,15 +1,21 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import style from "./style.module.css";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import style from "./style.module.css"
 
-export const Sidebar = ({ links, activeState, changeActiveState }) => {
+type SidebarProps = {
+  links: Array<{ path: string; name: string }>
+  activeState: boolean
+  changeActiveState?: () => void
+}
+
+export const Sidebar = ({ links, activeState, changeActiveState }: SidebarProps) => {
   return (
     <nav
       className={style.sidenav}
       style={
         !activeState
           ? {
-              visibility: "hidden",
+              visibility: "hidden"
             }
           : {}
       }
@@ -19,9 +25,7 @@ export const Sidebar = ({ links, activeState, changeActiveState }) => {
           <NavLink
             key={i}
             className={style["sidenav-content__item"]}
-            style={({ isActive }) =>
-              isActive ? { backgroundColor: "#c0cdff" } : {}
-            }
+            style={({ isActive }) => (isActive ? { backgroundColor: "#c0cdff" } : {})}
             to={link.path}
             onClick={changeActiveState}
           >
@@ -30,5 +34,5 @@ export const Sidebar = ({ links, activeState, changeActiveState }) => {
         ))}
       </div>
     </nav>
-  );
-};
+  )
+}

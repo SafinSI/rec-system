@@ -1,8 +1,11 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
-export const AuthContext = createContext({
-  token: null,
+type AuthContextType = {
+  isAuth: boolean;
+  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const AuthContext = createContext<AuthContextType>({
   isAuth: false,
-  setToken: () => {},
   setIsAuth: () => {},
 });

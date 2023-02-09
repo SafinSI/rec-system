@@ -1,22 +1,35 @@
-export function sendRequest(url, method = "GET", body = null) {
+import { token } from "./token";
+
+export type Request = {
+  url: string;
+  method?: "GET" | "POST" | "PATCH" | "PUT";
+  body?: string;
+  sendToken?: boolean;
+  errorHandler?: (err: string) => void;
+};
+
+export function sendRequest<T>({
+  url,
+  method = "GET",
+  body,
+  sendToken = true,
+  errorHandler,
+}: Request): Promise<T> {
+  const authToken = token.getToken();
   const fetchParams = {
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: sessionStorage.getItem("Token"),
+      ...(sendToken && authToken && { Authorization: authToken }),
     },
+    ...(["POST", "PATCH", "PUT"].indexOf(method) > -1 && { body }),
   };
 
-  if (["POST", "PATCH", "PUT"].indexOf(method) > -1 && !!body) {
-    fetchParams.body = body;
-  }
-
   return fetch(url, fetchParams)
-    .catch((response) => console.log("ERR", response))
     .then((response) => {
-      if (response.status === 200 || response.status === 201) {
+      if (response.ok) {
         return response.json();
       }
-      return { results: [], status: response.status };
-    });
+    })
+    .catch((err) => errorHandler && errorHandler(err));
 }

@@ -1,9 +1,3 @@
-import React from "react";
+import React from "react"
 
-export function MessagePage({ onClick, message }) {
-  return (
-    <div className="main" onClick={onClick}>
-      <h1 className="main_header1">{message}</h1>
-    </div>
-  );
-}
+export const MessagePage = ({ message }) => <h1 className="main_header1">{message}</h1>

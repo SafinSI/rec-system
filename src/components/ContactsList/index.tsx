@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export const ContactsList = ({ data }) => {
   return (
@@ -8,12 +8,7 @@ export const ContactsList = ({ data }) => {
           {item.name}
           <ul>
             <li>
-              <a
-                href={item.telegram}
-                className="link"
-                rel="noreferrer"
-                target="_blank"
-              >
+              <a href={item.telegram} className="link" rel="noreferrer" target="_blank">
                 Telegram
               </a>
             </li>
@@ -22,5 +17,5 @@ export const ContactsList = ({ data }) => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}

@@ -1,16 +1,16 @@
-import React from "react";
-import { useState } from "react";
-import style from "./style.module.css";
+import React from "react"
+import { useState } from "react"
+import style from "./style.module.css"
 
 export const ThematicsAdderForm = (props) => {
-  const [themeTitle, setThemeTitle] = useState("");
+  const [themeTitle, setThemeTitle] = useState("")
   const addNewThematic = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (themeTitle) {
-      props.addTheme(themeTitle);
-      setThemeTitle("");
+      props.addTheme(themeTitle)
+      setThemeTitle("")
     }
-  };
+  }
   return (
     <form className={style.form}>
       <button className={style["square-button"]} onClick={addNewThematic}>
@@ -24,5 +24,5 @@ export const ThematicsAdderForm = (props) => {
         onChange={(e) => setThemeTitle(e.target.value)}
       />
     </form>
-  );
-};
+  )
+}

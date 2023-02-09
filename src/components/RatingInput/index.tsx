@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { getValidNumber } from "../../utils";
-import styles from "./style.module.css";
+import React, { useState } from "react"
+import { getValidNumber } from "../../utils"
+import styles from "./style.module.css"
 
-import { MIN_RATING, MAX_RATING } from "../../config";
+import { MIN_RATING, MAX_RATING } from "../../config"
 
 export const RatingInput = ({ onChange }) => {
-  const [rating, setRating] = useState({ min: "", max: "" });
+  const [rating, setRating] = useState({ min: "", max: "" })
   return (
     <form className={styles.root}>
       <input
@@ -18,12 +18,12 @@ export const RatingInput = ({ onChange }) => {
         onChange={(e) => {
           setRating((prev) => ({
             ...prev,
-            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
-          }));
+            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+          }))
           onChange({
             ...rating,
-            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
-          });
+            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+          })
         }}
       />
       <input
@@ -36,14 +36,14 @@ export const RatingInput = ({ onChange }) => {
         onChange={(e) => {
           setRating((prev) => ({
             ...prev,
-            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
-          }));
+            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+          }))
           onChange({
             ...rating,
-            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING),
-          });
+            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+          })
         }}
       />
     </form>
-  );
-};
+  )
+}

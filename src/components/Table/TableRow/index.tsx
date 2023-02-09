@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export const TableRow = (props) => {
   return (
@@ -7,5 +7,5 @@ export const TableRow = (props) => {
         <td key={i}>{item}</td>
       ))}
     </tr>
-  );
-};
+  )
+}

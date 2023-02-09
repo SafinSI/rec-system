@@ -30,11 +30,13 @@ export const useURL = ({
   });
 
   useEffect(() => {
-    sendRequest(getActualURL(urlState, filtersState)).then((response) => {
-      if (action) {
-        action(response, urlState);
+    sendRequest({ url: getActualURL(urlState, filtersState) }).then(
+      (response) => {
+        if (action) {
+          action(response, urlState);
+        }
       }
-    });
+    );
   }, [urlState, filtersState]);
 
   return { urlState, setUrlState, filtersState, setFilterState };

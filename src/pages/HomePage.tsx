@@ -1,17 +1,15 @@
-import React from "react";
+import React from "react"
 
-export const HomePage = ({ onClick }) => {
+export const HomePage = () => {
   return (
-    <div className="main" onClick={onClick}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <h1 className="main_header1">Рекомендательная система НРекС</h1>
-      </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center"
+      }}
+    >
+      <h1 className="main_header1">Рекомендательная система НРекС</h1>
     </div>
-  );
-};
+  )
+}
