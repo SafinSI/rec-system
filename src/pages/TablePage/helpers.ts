@@ -10,7 +10,7 @@ export const changeSortField = (field: string, setUrlState: SetUrlState) => {
   })
 }
 
-export const changeSearchQuery = (setUrlState: SetUrlState) => (event, input: string) => {
+export const changeSearchQuery = (setUrlState: SetUrlState) => (event: React.ChangeEvent, input: string) => {
   event.preventDefault()
   setUrlState((prev) => {
     return {

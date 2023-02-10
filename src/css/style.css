@@ -60,7 +60,6 @@ body {
 #root {
   display: grid;
   grid-template-columns: minmax(0, max-content) 1fr;
-  column-gap: 20px;
   min-height: 100vh;
   grid-template-rows: max-content 1fr;
   position: relative;

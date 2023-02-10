@@ -1,31 +1,28 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": false,
-    "rootDir": ".",
     "strict": true,
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noImplicitOverride": false,
-    "importHelpers": true,
-    "target": "es2015",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "lib": ["es2019", "dom", "dom.iterable"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "baseUrl": ".",
-    "noImplicitAny": false,
-    "resolveJsonModule": true
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customTemplate": "./customTemplate.js"
+        }
+      }
+    ]
   },
-  "files": ["src/index.ts"],
-  "exclude": ["node_modules", "tmp", ".cache", "scripts"]
+  "include": ["src"]
 }

@@ -10,7 +10,9 @@ export const articleDataDecorator: DataDecorator = (item) => {
       </a>
     ),
     keywords: item.keywords,
-    authors: item.authors.map((item) => item.name).join(", "),
-    classification_labels: item.classification_labels.map((item) => item.classification_label.name).join(" ")
+    authors: item.authors.map((item: { name: string }) => item.name).join(", "),
+    classification_labels: item.classification_labels
+      .map((item: { classification_label: { name: string } }) => item.classification_label.name)
+      .join(" ")
   }
 }

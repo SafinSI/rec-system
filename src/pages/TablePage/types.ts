@@ -1,5 +1,5 @@
-import { DataDecorator } from "@rec-system/components"
-import { UrlState, FiltersState } from "@rec-system/utils"
+import { DataDecorator } from "../../components"
+import { UrlState, FiltersState } from "../../utils"
 
 export type SetUrlState = React.Dispatch<React.SetStateAction<UrlState>>
 

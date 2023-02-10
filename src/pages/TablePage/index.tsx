@@ -33,7 +33,9 @@ export const TablePage = ({ baseUrl, buildColumns, dataDecorator, addToRecomenda
         <span className="pages-num-text">Показать</span>
         <Select
           style={{ width: "55px", height: "100%" }}
-          onChange={(event) => setUrlState((prev) => ({ ...prev, pageLen: event.target.value }))}
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            setUrlState((prev) => ({ ...prev, pageLen: event.target.value }))
+          }
           options={PAGE_LENS}
           valueField={"name"}
         />

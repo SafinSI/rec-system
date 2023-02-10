@@ -2,17 +2,7 @@ import React from "react"
 import { TableRow } from "./TableRow"
 import { TableHeader } from "./TableHeader"
 import tableStyle from "./TableStyle.module.css"
-
-export type DataItem = Record<string, any> & { id: number }
-export type DataDecorator = (item: DataItem) => DataItem | string | JSX.Element
-
-type TableProps = {
-  data: Array<DataItem>
-  columns: Array<string | JSX.Element>
-  dataDecorator?: DataDecorator
-  choiseRows: (id: number) => void
-  noDataMessage?: string
-}
+import { TableProps } from "./types"
 
 const TableView = ({
   data,
@@ -23,7 +13,7 @@ const TableView = ({
 }: TableProps) => {
   console.log("render table")
 
-  const onTableRowClick = (id) => (event) => {
+  const onTableRowClick = (id: number) => (event: React.MouseEvent<HTMLElement>) => {
     const eltColor = event.currentTarget.style.backgroundColor
     event.currentTarget.style.backgroundColor = eltColor ? "" : "#DBDBDB"
     choiseRows(id)

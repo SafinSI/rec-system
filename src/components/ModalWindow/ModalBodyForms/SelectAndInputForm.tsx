@@ -18,7 +18,12 @@ export const SelectAndInputForm = ({ data, setData, options }) => {
           }))
         }
       />
-      <Select onChange={(e) => setData((prev) => ({ ...prev, label: e.target.value }))} options={options} />
+      <Select
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+          setData((prev) => ({ ...prev, label: event.target.value }))
+        }
+        options={options}
+      />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import switcherStyle from "./style.module.css"
 
-const buttonStyle = (currentPage, pageButtonsMount, shift, i) =>
+const buttonStyle = (currentPage: number, pageButtonsMount: number, shift: number, i: number) =>
   (currentPage <= pageButtonsMount - shift && currentPage === i + 1) ||
   (currentPage > pageButtonsMount - shift && currentPage === currentPage + i - shift)
     ? { backgroundColor: "#c0c0c0" }

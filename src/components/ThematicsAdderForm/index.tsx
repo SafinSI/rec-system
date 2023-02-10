@@ -4,8 +4,8 @@ import style from "./style.module.css"
 
 export const ThematicsAdderForm = (props) => {
   const [themeTitle, setThemeTitle] = useState("")
-  const addNewThematic = (e) => {
-    e.preventDefault()
+  const addNewThematic = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
     if (themeTitle) {
       props.addTheme(themeTitle)
       setThemeTitle("")
