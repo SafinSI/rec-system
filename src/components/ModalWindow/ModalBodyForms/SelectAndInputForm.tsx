@@ -1,6 +1,6 @@
 import React from "react"
 import { Select } from "../../Select"
-import { getValidNumber } from "../../../utils/getValidNumber"
+import { getValidNumber } from "../../../utils"
 import { MIN_RATING, MAX_RATING } from "../../../config"
 
 export const SelectAndInputForm = ({ data, setData, options }) => {

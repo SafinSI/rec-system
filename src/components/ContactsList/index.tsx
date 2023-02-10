@@ -1,6 +1,10 @@
 import React from "react"
 
-export const ContactsList = ({ data }) => {
+type ContactsListProps = {
+  data: { id: number; name: string; email: string; telegram: string }[]
+}
+
+export const ContactsList = ({ data }: ContactsListProps) => {
   return (
     <ul className="list-information">
       {data.map((item) => (

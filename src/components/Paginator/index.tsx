@@ -7,7 +7,14 @@ const buttonStyle = (currentPage, pageButtonsMount, shift, i) =>
     ? { backgroundColor: "#c0c0c0" }
     : {}
 
-export const Paginator = ({ pageMount, currentPage, pageButtonsMount = 5, onClick }) => {
+type PaginatorProps = {
+  pageMount: number
+  currentPage: number
+  pageButtonsMount?: number
+  onClick: (pageNum: number) => void
+}
+
+export const Paginator = ({ pageMount, currentPage, pageButtonsMount = 5, onClick }: PaginatorProps) => {
   let pagesMoreThanButtons = pageMount > pageButtonsMount
   let shift = 1
   if (pageMount - currentPage < pageButtonsMount - 1) {

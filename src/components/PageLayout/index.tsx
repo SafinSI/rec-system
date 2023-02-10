@@ -20,7 +20,12 @@ const sidebarLinks = [
   { path: "/about", name: "О нас" }
 ]
 
-export const PageLayout = ({ setSidebarState, sidebarState }) => {
+type PageLayoutProps = {
+  sidebarState: boolean
+  setSidebarState: (sidebarState: boolean) => void
+}
+
+export const PageLayout = ({ setSidebarState, sidebarState }: PageLayoutProps) => {
   return (
     <>
       <Header onBurgerButtonClick={() => setSidebarState(!sidebarState)} />

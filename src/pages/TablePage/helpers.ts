@@ -1,4 +1,6 @@
-export const changeSortField = (field: string, setUrlState) => {
+import { SetUrlState } from "./types"
+
+export const changeSortField = (field: string, setUrlState: SetUrlState) => {
   setUrlState((prev) => {
     return {
       ...prev,
@@ -8,7 +10,7 @@ export const changeSortField = (field: string, setUrlState) => {
   })
 }
 
-export const changeSearchQuery = (setUrlState) => (event, input: string) => {
+export const changeSearchQuery = (setUrlState: SetUrlState) => (event, input: string) => {
   event.preventDefault()
   setUrlState((prev) => {
     return {
@@ -18,12 +20,13 @@ export const changeSearchQuery = (setUrlState) => (event, input: string) => {
   })
 }
 
-export const choiceTableElements = (setChosenTableRows) => (currentItem) => {
-  setChosenTableRows((prevState) => {
-    if (prevState.indexOf(currentItem) === -1) {
-      return [...prevState, currentItem]
-    } else {
-      return prevState.filter((item) => item !== currentItem)
-    }
-  })
-}
+export const choiceTableElements =
+  (setChosenTableRows: React.Dispatch<React.SetStateAction<number[]>>) => (currentItem) => {
+    setChosenTableRows((prevState) => {
+      if (prevState.indexOf(currentItem) === -1) {
+        return [...prevState, currentItem]
+      } else {
+        return prevState.filter((item) => item !== currentItem)
+      }
+    })
+  }

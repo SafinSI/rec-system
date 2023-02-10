@@ -4,7 +4,11 @@ import { AuthContext } from "../../contexts/AuthContext"
 import { token } from "../../utils"
 import style from "./style.module.css"
 
-export const Header = ({ onBurgerButtonClick }) => {
+type HeaderProps = {
+  onBurgerButtonClick: () => void
+}
+
+export const Header = ({ onBurgerButtonClick }: HeaderProps) => {
   const [modalActive, setModalActive] = React.useState(false)
   const { isAuth, setIsAuth } = useContext(AuthContext)
   return (
@@ -26,7 +30,7 @@ export const Header = ({ onBurgerButtonClick }) => {
           Войти
         </button>
       )}
-      <AuthorizationModal active={modalActive} setActive={setModalActive} setAuth={setIsAuth} />
+      <AuthorizationModal isActive={modalActive} setActive={setModalActive} setAuth={setIsAuth} />
     </header>
   )
 }

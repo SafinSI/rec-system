@@ -1,11 +1,14 @@
-export const getValidNumber = (value, minValue, maxValue) => {
-  const validValue = value.replace(/[^\d]/g, "");
-  const lastNum = validValue[validValue.length - 1];
-  if ((validValue >= minValue && validValue <= maxValue) || validValue === "") {
-    return validValue;
+export const getValidNumber = (value: string, minValue: number, maxValue: number) => {
+  const validValue = value.replace(/[^\d]/g, "")
+  const isValueEmpty = validValue.length === 0
+  const lastNum = Number(validValue[validValue.length - 1])
+  const validNumber = Number(validValue)
+
+  if ((validNumber >= minValue && validNumber <= maxValue) || isValueEmpty) {
+    return validValue
   }
   if (lastNum >= minValue && lastNum < maxValue) {
-    return lastNum;
+    return String(lastNum)
   }
-  return "";
-};
+  return ""
+}

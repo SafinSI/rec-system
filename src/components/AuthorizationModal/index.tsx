@@ -1,13 +1,19 @@
 import React, { useState } from "react"
-import style from "./style.module.css"
 import { makeAuthorization } from "../../utils"
+import style from "./style.module.css"
 
-export const AuthorizationModal = ({ active, setActive, setAuth }) => {
+type AuthorizationModalProps = {
+  isActive: boolean
+  setActive: (isActive: boolean) => void
+  setAuth: (isAuth: boolean) => void
+}
+
+export const AuthorizationModal = ({ isActive, setActive, setAuth }: AuthorizationModalProps) => {
   const [login, setLogin] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
 
-  const onSucces = () => (result) => {
+  const onSucces = () => (result: string) => {
     if (result) {
       setActive(false)
       setAuth(true)
@@ -18,13 +24,13 @@ export const AuthorizationModal = ({ active, setActive, setAuth }) => {
     }
   }
 
-  const errorHandler = (err) => {
+  const errorHandler = (err: string) => {
     setErrorMessage("Ошибка авторизации")
     console.log(err)
   }
 
   return (
-    <div className={active ? style.active : style.unactive} onClick={() => setActive(false)}>
+    <div className={isActive ? style.active : style.unactive} onClick={() => setActive(false)}>
       <div className={style.content} onClick={(e) => e.stopPropagation()}>
         <h4 className={style.header}>Вход</h4>
         <input

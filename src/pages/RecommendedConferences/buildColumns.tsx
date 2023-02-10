@@ -1,20 +1,21 @@
 import React from "react"
 import { SortingCell, RatingInput } from "../../components"
+import { BuildColumns } from "../TablePage"
 
-export const buildColumns = (sortField, typeSort, setUrlState, setFilterState, changeSortField) => [
+export const buildColumns: BuildColumns = (sortField, typeSort, changeSortField, setUrlState, setFilterState) => [
   <SortingCell
     name={"Номер рекомендации"}
     id={"id"}
     sortField={sortField}
     typeSort={typeSort}
-    onClick={(field) => changeSortField(field)}
+    onClick={(field) => changeSortField(field, setUrlState)}
   />,
   <SortingCell
     name={"Оценка пользователя"}
     id={"rf_label"}
     sortField={sortField}
     typeSort={typeSort}
-    onClick={(field) => changeSortField(field)}
+    onClick={(field) => changeSortField(field, setUrlState)}
   >
     <RatingInput
       onChange={({ min, max }) =>
@@ -31,7 +32,7 @@ export const buildColumns = (sortField, typeSort, setUrlState, setFilterState, c
     id={"recommendation_rating"}
     sortField={sortField}
     typeSort={typeSort}
-    onClick={(field) => changeSortField(field)}
+    onClick={(field) => changeSortField(field, setUrlState)}
   >
     <RatingInput
       onChange={({ min, max }) =>
@@ -48,6 +49,6 @@ export const buildColumns = (sortField, typeSort, setUrlState, setFilterState, c
     id={"conference"}
     sortField={sortField}
     typeSort={typeSort}
-    onClick={(field) => changeSortField(field)}
+    onClick={(field) => changeSortField(field, setUrlState)}
   />
 ]

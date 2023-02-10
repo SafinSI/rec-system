@@ -1,6 +1,6 @@
 import React from "react"
 
-export const TableHeader = ({ columns }) => {
+export const TableHeader = ({ columns }: { columns: Array<JSX.Element | string> }) => {
   return (
     <thead>
       <tr key={0}>

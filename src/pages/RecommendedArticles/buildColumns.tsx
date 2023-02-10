@@ -1,7 +1,8 @@
 import React from "react"
 import { SortingCell, RatingInput } from "../../components"
+import { BuildColumns } from "../TablePage"
 
-export const buildColumns = (sortField, typeSort, setUrlState, setFilterState, changeSortField) => [
+export const buildColumns: BuildColumns = (sortField, typeSort, changeSortField, setUrlState, setFilterState) => [
   <SortingCell
     name={"Номер рекомендации"}
     id={"id"}

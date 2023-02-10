@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import { getValidNumber } from "../../utils"
+import { MIN_RATING, MAX_RATING } from "../../config"
 import styles from "./style.module.css"
 
-import { MIN_RATING, MAX_RATING } from "../../config"
+type RatingInputProps = {
+  onChange: (props: { min: string; max: string }) => void
+}
 
-export const RatingInput = ({ onChange }) => {
-  const [rating, setRating] = useState({ min: "", max: "" })
+export const RatingInput = ({ onChange }: RatingInputProps) => {
+  const [rating, setRating] = useState<{ min: string; max: string }>({ min: "", max: "" })
   return (
     <form className={styles.root}>
       <input
