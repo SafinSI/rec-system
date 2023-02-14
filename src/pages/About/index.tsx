@@ -1,6 +1,6 @@
 import React from "react"
-import { ContactsList } from "../components"
-import { creators } from "../config"
+import { ContactsList } from "./ContactsList"
+import { creators } from "../../config"
 
 type AboutProps = { onClick?: () => void }
 

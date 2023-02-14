@@ -5,7 +5,7 @@ import {
   RecommendedArticles,
   HomePage,
   About,
-  MessagePage,
+  ErrorPage,
   RecomendationThematics,
   ViewingArticles,
   ViewingConferences,
@@ -43,12 +43,12 @@ export const App = () => {
               <Route path="/recommendation_articles" element={<RecommendedArticles />} />
               <Route path="/recommendation_conferences" element={<RecommendedConferences />} />
               <Route path="/about" element={<About />} />
-              <Route path="*" element={<MessagePage message={"Страница не найдена"} />} />
+              <Route path="*" element={<ErrorPage message={"Страница не найдена"} />} />
               <Route path="/" element={<HomePage />} />
             </Routes>
           ) : (
             <Routes>
-              <Route path="*" element={<MessagePage message={"Войдите в систему"} />} />
+              <Route path="*" element={<ErrorPage message={"Войдите в систему"} />} />
               <Route path="/about" element={<About />} />
             </Routes>
           )}

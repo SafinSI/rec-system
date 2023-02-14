@@ -1,4 +1,3 @@
-export * from "./ContactsList"
 export * from "./Header"
 export * from "./ModalWindows"
 export * from "./PageLayout"

@@ -1,7 +1,7 @@
 export { RecommendedArticles } from "./RecommendedArticles"
 export { About } from "./About"
 export { HomePage } from "./HomePage"
-export { MessagePage } from "./MessagePage"
+export { ErrorPage } from "./ErrorPage"
 export { RecomendationThematics } from "./RecomendationThematics"
 export { ViewingConferences } from "./ViewingConferences"
 export { ViewingArticles } from "./ViewingArticles"
