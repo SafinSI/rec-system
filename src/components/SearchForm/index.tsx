@@ -1,11 +1,15 @@
 import React, { useState } from "react"
 import formStyle from "./SearchFormStyle.module.css"
 
-export const SearchForm = ({ onClick }) => {
+type SearchFormProps = {
+  onClick: (event: React.MouseEvent, input: string) => void
+}
+
+export const SearchForm = ({ onClick }: SearchFormProps) => {
   const [inputState, setInputState] = useState("")
   return (
     <form className={formStyle.form}>
-      <button className={formStyle["square-button"]} onClick={(e) => onClick(e, inputState)}>
+      <button className={formStyle["square-button"]} onClick={(event) => onClick(event, inputState)}>
         Найти
       </button>
       <input

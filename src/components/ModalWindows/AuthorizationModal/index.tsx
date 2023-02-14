@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { makeAuthorization } from "../../utils"
+import { makeAuthorization } from "../../../utils"
+import { ModalWrapper } from "../ModalWrapper"
 import style from "./style.module.css"
 
 type AuthorizationModalProps = {
@@ -13,25 +14,19 @@ export const AuthorizationModal = ({ isActive, setActive, setAuth }: Authorizati
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
 
-  const onSucces = () => (result: string) => {
-    if (result) {
-      setActive(false)
-      setAuth(true)
-      setErrorMessage("")
+  const authHandler = (err: string) => {
+    if (err) {
+      setErrorMessage(err)
     } else {
-      setErrorMessage("Неверный Логин/Пароль")
-      setAuth(false)
+      setAuth(true)
+      setActive(false)
+      setErrorMessage("")
     }
   }
 
-  const errorHandler = (err: string) => {
-    setErrorMessage("Ошибка авторизации")
-    console.log(err)
-  }
-
   return (
-    <div className={isActive ? style.active : style.unactive} onClick={() => setActive(false)}>
-      <div className={style.content} onClick={(e) => e.stopPropagation()}>
+    <ModalWrapper isActive={isActive} setActive={setActive}>
+      <>
         <h4 className={style.header}>Вход</h4>
         <input
           className={style.textarea}
@@ -52,14 +47,13 @@ export const AuthorizationModal = ({ isActive, setActive, setAuth }: Authorizati
             makeAuthorization({
               username: login,
               password,
-              onSucces,
-              errorHandler
+              authHandler
             })
           }}
         >
           Войти
         </button>
-      </div>
-    </div>
+      </>
+    </ModalWrapper>
   )
 }

@@ -28,7 +28,7 @@ export const App = () => {
 
   useEffect(() => {
     setIsAuth(Boolean(token.getToken()))
-  }, [])
+  }, [isAuth])
 
   return (
     <AuthContext.Provider value={contextValue}>

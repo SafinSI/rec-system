@@ -1,12 +1,18 @@
 import React from "react"
 import { useState } from "react"
-import { Table, ModalWindow, InputForm, Select, SearchForm, Paginator } from "../../components"
+import { Table, RatingModal, Select, SearchForm, Paginator } from "../../components"
 import { PAGE_LENS } from "../../config"
 import { useURL } from "../../utils"
 import { choiceTableElements, changeSearchQuery, changeSortField } from "./helpers"
 import { TablePageProps } from "./types"
 
-export const TablePage = ({ baseUrl, buildColumns, dataDecorator, addToRecomendations }: TablePageProps) => {
+export const TablePage = ({
+  baseUrl,
+  buildColumns,
+  dataDecorator,
+  addToRecomendations,
+  modalSelectOptions
+}: TablePageProps) => {
   const [data, setData] = useState([])
 
   const [chosenTableRows, setChosenTableRows] = useState<number[]>([])
@@ -34,7 +40,7 @@ export const TablePage = ({ baseUrl, buildColumns, dataDecorator, addToRecomenda
         <Select
           style={{ width: "55px", height: "100%" }}
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            setUrlState((prev) => ({ ...prev, pageLen: event.target.value }))
+            setUrlState((prev) => ({ ...prev, pageLen: Number(event.target.value) }))
           }
           options={PAGE_LENS}
           valueField={"name"}
@@ -43,7 +49,7 @@ export const TablePage = ({ baseUrl, buildColumns, dataDecorator, addToRecomenda
       </div>
       <SearchForm onClick={changeSearchQuery(setUrlState)} />
       <button className="square-button" disabled={chosenTableRows.length === 0} onClick={() => setModalActive(true)}>
-        Обновить рейтинг
+        {modalSelectOptions ? "Добавить к рекомендациям" : "Обновить рейтинг"}
       </button>
       <Table
         data={data}
@@ -55,26 +61,27 @@ export const TablePage = ({ baseUrl, buildColumns, dataDecorator, addToRecomenda
         pageMount={pageMount}
         currentPage={urlState.page}
         onClick={(pageNum: number) => {
-          setUrlState((prev) => {
-            return {
-              ...prev,
-              page: pageNum
-            }
-          })
+          setUrlState((prev) => ({
+            ...prev,
+            page: pageNum
+          }))
         }}
       />
-      <ModalWindow
+      <RatingModal
         title={"Оценка для рекомендательной системы"}
         isActive={modalActive}
         setActive={setModalActive}
         onConfirm={(data) => {
           if (!!data.rating) {
-            addToRecomendations(data.rating, chosenTableRows)
+            addToRecomendations(data.rating, chosenTableRows, data.labelId)
             setModalActive(false)
           }
         }}
-        dataInitialState={{ rating: "" }}
-        renderFunction={InputForm}
+        dataInitialState={{
+          rating: "",
+          labelId: 1
+        }}
+        dataLabels={modalSelectOptions}
       />
     </>
   )

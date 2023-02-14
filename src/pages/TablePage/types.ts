@@ -1,5 +1,5 @@
 import { DataDecorator } from "../../components"
-import { UrlState, FiltersState } from "../../utils"
+import { UrlState, FiltersState, Option } from "../../utils"
 
 export type SetUrlState = React.Dispatch<React.SetStateAction<UrlState>>
 
@@ -14,6 +14,7 @@ export type BuildColumns = (
 export type TablePageProps = {
   baseUrl: string
   buildColumns: BuildColumns
-  addToRecomendations: (rating: string, dataIds: number[]) => void
+  addToRecomendations: (rating: string, dataIds: number[], labelId?: number) => void
   dataDecorator?: DataDecorator
+  modalSelectOptions?: Option[]
 }

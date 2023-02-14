@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { AuthorizationModal } from "../AuthorizationModal"
+import { AuthorizationModal } from "../ModalWindows/AuthorizationModal"
 import { AuthContext } from "../../contexts/AuthContext"
 import { token } from "../../utils"
 import style from "./style.module.css"

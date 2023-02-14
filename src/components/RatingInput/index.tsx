@@ -7,6 +7,8 @@ type RatingInputProps = {
   onChange: (props: { min: string; max: string }) => void
 }
 
+const validateInput = (value: string) => getValidNumber(value, MIN_RATING, MAX_RATING)
+
 export const RatingInput = ({ onChange }: RatingInputProps) => {
   const [rating, setRating] = useState<{ min: string; max: string }>({ min: "", max: "" })
   return (
@@ -21,11 +23,11 @@ export const RatingInput = ({ onChange }: RatingInputProps) => {
         onChange={(e) => {
           setRating((prev) => ({
             ...prev,
-            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+            min: validateInput(e.target.value)
           }))
           onChange({
             ...rating,
-            min: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+            min: validateInput(e.target.value)
           })
         }}
       />
@@ -39,11 +41,11 @@ export const RatingInput = ({ onChange }: RatingInputProps) => {
         onChange={(e) => {
           setRating((prev) => ({
             ...prev,
-            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+            max: validateInput(e.target.value)
           }))
           onChange({
             ...rating,
-            max: getValidNumber(e.target.value, MIN_RATING, MAX_RATING)
+            max: validateInput(e.target.value)
           })
         }}
       />

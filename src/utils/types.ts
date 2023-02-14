@@ -11,3 +11,8 @@ export type UrlState = {
   searchQuery: string
   sort?: string
 }
+
+export type Option = {
+  id: number
+  name: string | number
+}

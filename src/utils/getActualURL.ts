@@ -1,14 +1,14 @@
 import { FiltersState, UrlState } from "./types"
 
-const urlMap = {
+const urlMap: Partial<Record<keyof UrlState, string>> = {
   page: "page",
   pageLen: "page_size",
   sort: "ordering",
   searchQuery: "search"
 }
 
-function getSort(urlState: UrlState) {
-  return `${urlState.typeSort ? "-" : ""}${urlState.sortField}`
+function getSort(url: UrlState) {
+  return `${url.typeSort ? "-" : ""}${url.sortField}`
 }
 
 const getFilters = (filtersState: FiltersState): Array<string> => {
@@ -27,13 +27,14 @@ export const getActualURL = (urlState: UrlState, filtersState?: FiltersState) =>
   let actualUrl = urlState.base
   let queryParams: Array<string> = []
   const urlCopy = urlState
-  urlCopy["sort"] = getSort(urlState)
+
+  urlCopy.sort = getSort(urlCopy)
 
   // преобразуем sortOrdering и sortField в sort
   Object.keys(urlMap).forEach((key) => {
-    const urlParam = urlCopy[key]
+    const urlParam = urlCopy[key as keyof typeof urlState]
     if (Boolean(urlParam)) {
-      queryParams.push(`${urlMap[key]}=${urlParam}`)
+      queryParams.push(`${urlMap[key as keyof typeof urlState]}=${urlParam}`)
     }
   })
   if (filtersState) {
@@ -42,6 +43,6 @@ export const getActualURL = (urlState: UrlState, filtersState?: FiltersState) =>
   if (queryParams.length > 0) {
     actualUrl += `?${queryParams.join("&")}`
   }
-  console.log(actualUrl)
+
   return actualUrl
 }
