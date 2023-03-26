@@ -7,4 +7,5 @@ export type TableProps = {
   dataDecorator?: DataDecorator
   choiseRows: (id: number) => void
   noDataMessage?: string
+  className?: string
 }

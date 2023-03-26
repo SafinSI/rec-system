@@ -133,21 +133,3 @@ body {
     display: none;
   }
 }
-
-.pages-num-wrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  font-weight: 300;
-  border-radius: 5px;
-  background-color: transparent;
-}
-
-.pages-num-text {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  border-radius: 5px;
-  padding: 8px;
-  background-color: #fff;
-}

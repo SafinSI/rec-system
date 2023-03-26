@@ -1,6 +1,6 @@
 .form {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 80px calc(100% - 95px);
   background-color: #efefef;
   border-radius: 15px;
   gap: 15px;

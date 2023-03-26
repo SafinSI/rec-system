@@ -5,6 +5,7 @@ import { PAGE_LENS } from "../../config"
 import { useURL } from "../../utils"
 import { choiceTableElements, changeSearchQuery, changeSortField } from "./helpers"
 import { TablePageProps } from "./types"
+import style from "./style.module.css"
 
 export const TablePage = ({
   baseUrl,
@@ -35,29 +36,34 @@ export const TablePage = ({
 
   return (
     <>
-      <div className="pages-num-wrapper">
-        <span className="pages-num-text">Показать</span>
+      <div className={style.num_wrapper}>
+        <span className={style.num_text}>Показать</span>
         <Select
-          style={{ width: "55px", height: "100%" }}
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
             setUrlState((prev) => ({ ...prev, pageLen: Number(event.target.value) }))
           }
           options={PAGE_LENS}
           valueField={"name"}
         />
-        <span className="pages-num-text">записей</span>
+        <span className={style.num_text}>записей</span>
       </div>
-      <SearchForm onClick={changeSearchQuery(setUrlState)} />
-      <button className="square-button" disabled={chosenTableRows.length === 0} onClick={() => setModalActive(true)}>
+      <SearchForm onClick={changeSearchQuery(setUrlState)} className={style.search_form} />
+      <button
+        className={`${style.button} square-button`}
+        disabled={chosenTableRows.length === 0}
+        onClick={() => setModalActive(true)}
+      >
         {modalSelectOptions ? "Добавить к рекомендациям" : "Обновить рейтинг"}
       </button>
       <Table
+        className={style.table}
         data={data}
         dataDecorator={dataDecorator}
         choiseRows={choiceTableElements(setChosenTableRows)}
         columns={buildColumns(urlState.sortField, urlState.typeSort, changeSortField, setUrlState, setFilterState)}
       />
       <Paginator
+        className={style.paginator}
         pageMount={pageMount}
         currentPage={urlState.page}
         onClick={(pageNum: number) => {

@@ -11,7 +11,7 @@ export const buildColumns: BuildColumns = (sortField, typeSort, changeSortField,
     onClick={(field) => changeSortField(field, setUrlState)}
   />,
   <SortingCell
-    name={"Название"}
+    name={"Название статьи"}
     id={"name"}
     sortField={sortField}
     typeSort={typeSort}

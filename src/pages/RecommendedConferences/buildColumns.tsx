@@ -45,7 +45,7 @@ export const buildColumns: BuildColumns = (sortField, typeSort, changeSortField,
     />
   </SortingCell>,
   <SortingCell
-    name={"Конференции"}
+    name={"Название конференции"}
     id={"conference"}
     sortField={sortField}
     typeSort={typeSort}

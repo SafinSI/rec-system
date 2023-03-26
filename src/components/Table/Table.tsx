@@ -1,4 +1,5 @@
 import React from "react"
+import { calcClassName } from "../../utils"
 import { TableRow } from "./TableRow"
 import { TableHeader } from "./TableHeader"
 import tableStyle from "./TableStyle.module.css"
@@ -9,7 +10,8 @@ const TableView = ({
   columns,
   dataDecorator,
   choiseRows,
-  noDataMessage = "Отсутствуют данные в таблице "
+  noDataMessage = "Отсутствуют данные в таблице ",
+  className
 }: TableProps) => {
   console.log("render table")
 
@@ -20,7 +22,7 @@ const TableView = ({
   }
 
   return (
-    <div className={tableStyle.wrapper}>
+    <div className={calcClassName([tableStyle.wrapper, className])}>
       <table className={tableStyle.table}>
         <TableHeader columns={columns} />
         <tbody>

@@ -12,7 +12,7 @@ export const articleDataDecorator: DataDecorator = (item) => {
     keywords: item.keywords,
     authors: item.authors.map((item: { name: string }) => item.name).join(", "),
     classification_labels: item.classification_labels
-      .map((item: { classification_label: { name: string } }) => item.classification_label.name)
+      .map((item: { classification_label__name: string }) => item.classification_label__name)
       .join(" ")
   }
 }

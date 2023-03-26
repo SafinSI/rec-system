@@ -1,4 +1,5 @@
 import React from "react"
+import { calcClassName } from "../../utils"
 import switcherStyle from "./style.module.css"
 
 const buttonStyle = (currentPage: number, pageButtonsMount: number, shift: number, i: number) =>
@@ -12,9 +13,10 @@ type PaginatorProps = {
   currentPage: number
   pageButtonsMount?: number
   onClick: (pageNum: number) => void
+  className?: string
 }
 
-export const Paginator = ({ pageMount, currentPage, pageButtonsMount = 5, onClick }: PaginatorProps) => {
+export const Paginator = ({ pageMount, currentPage, pageButtonsMount = 5, onClick, className }: PaginatorProps) => {
   let pagesMoreThanButtons = pageMount > pageButtonsMount
   let shift = 1
   if (pageMount - currentPage < pageButtonsMount - 1) {
@@ -23,7 +25,7 @@ export const Paginator = ({ pageMount, currentPage, pageButtonsMount = 5, onClic
   }
 
   return (
-    <div className={switcherStyle.wrapper}>
+    <div className={calcClassName([switcherStyle.wrapper, className])}>
       {currentPage > pageButtonsMount - 1 ? (
         <>
           <button
